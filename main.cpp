@@ -3,7 +3,7 @@
 #include "imagelabel.h"
 #include <QApplication>
 
-
+//Raja Rathinam A
 
 int main(int argc, char *argv[])
 {
