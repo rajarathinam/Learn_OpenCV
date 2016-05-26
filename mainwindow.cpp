@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     hLayout = new QHBoxLayout;
     hLayout->setSpacing(0);
     hLayout->setSizeConstraint(QLayout::SetFixedSize);
-    vlabel = new AspectRatioPixmapLabel(this);
+    vlabel = new AspectRatioPixmapLabel();
     slider = new QSlider(Qt::Horizontal);
     slider->setEnabled(false);
     slider->setStyleSheet("QSlider::groove:horizontal {\
@@ -264,6 +264,7 @@ void MainWindow::on_actionImageManipulationWidget_triggered()
 
 void MainWindow::onPlayButtonToggled(bool flag)
 {
+   Q_UNUSED(flag);
     if( frameTimer->isActive())
     {
         frameTimer->stop();
