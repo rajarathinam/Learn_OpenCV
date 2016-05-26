@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>arrplayer.png</file>
+        <file>arrplayer.ico</file>
+        <file>pausebutton.png</file>
+        <file>playbutton.png</file>
+        <file>stopbutton.png</file>
+        <file>initial.jpg</file>
+    </qresource>
+</RCC>
