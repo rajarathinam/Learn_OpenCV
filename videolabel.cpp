@@ -46,6 +46,12 @@ void VideoLabel::setPixmap(QPixmap pix)
     label->setPixmap(pix.scaled(size(),Qt::KeepAspectRatio));
     label->adjustSize();
 }
+
+void VideoLabel::setMovie(QMovie *movie)
+{
+  label->setMovie(movie);
+
+}
 void VideoLabel::hoverEnter(QHoverEvent *event)
 {
     QPoint pos = event->pos();

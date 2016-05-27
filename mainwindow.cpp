@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setMinimumSize(500,500);
     fullScreenSet = false;
     imageManipulationWidgetVisible = false;
     frameTimer = new QTimer(this);
@@ -21,7 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     hLayout = new QHBoxLayout;
     hLayout->setSpacing(0);
     hLayout->setSizeConstraint(QLayout::SetFixedSize);
-    vlabel = new AspectRatioPixmapLabel();
+    vlabel = new VideoLabel();
+    movie = new QMovie(":/images/arr.gif");
+    vlabel->setMovie(movie);
+    movie->start();
     slider = new QSlider(Qt::Horizontal);
     slider->setEnabled(false);
     slider->setStyleSheet("QSlider::groove:horizontal {\
@@ -280,13 +284,7 @@ void MainWindow::onPlayButtonToggled(bool flag)
 
 void MainWindow::onStopButtonClicked()
 {
-    if(capture.isOpened())
-    {
-        vlabel->setPixmap(QPixmap::fromImage(QImage(":/images/initial.jpg")));
-
-        frameTimer->stop();
-        capture.release();
-    }
+   initializePlayerControls();
 }
 
 void MainWindow::displayImage()
@@ -312,6 +310,24 @@ void MainWindow::displayImage()
     }
     QImage imgIn= Mat2QImage(current_img);
     vlabel->setPixmap(QPixmap::fromImage(imgIn));
+
+
+}
+
+void MainWindow::initializePlayerControls()
+{
+   playButton->setIcon(QIcon(":/images/playbutton.png"));
+   playButton->setEnabled(false);
+
+   slider->setValue(0);
+   if(capture.isOpened())
+   {
+       capture.release();
+
+   }
+   vlabel->setMovie(movie);
+   movie->start();
+   frameTimer->stop();
 
 
 }

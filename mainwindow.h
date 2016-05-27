@@ -7,6 +7,7 @@
 #include <QScrollArea>
 #include <QSlider>
 #include <QTimer>
+#include <QMovie>
 #include "myopencv.h"
 #include "videolabel.h"
 #include "imagemaninpulationwidget.h"
@@ -55,6 +56,7 @@ private slots:
     void onPlayButtonToggled(bool);
     void onStopButtonClicked();
     void displayImage();
+    void initializePlayerControls();
 
 private:
     Ui::MainWindow *ui;
@@ -62,7 +64,8 @@ private:
     QGridLayout *mainLayout;
     QHBoxLayout *hLayout;
     QScrollArea *scrollArea;
-    AspectRatioPixmapLabel *vlabel;
+    VideoLabel *vlabel;
+    QMovie *movie ;
 
     QLabel *label;
     QSlider *slider;
@@ -86,6 +89,9 @@ private:
 
     int totalframes;
     int currentframenumber;
+
+
+
 
 
 

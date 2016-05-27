@@ -6,5 +6,6 @@
         <file>playbutton.png</file>
         <file>stopbutton.png</file>
         <file>initial.jpg</file>
+        <file>arr.gif</file>
     </qresource>
 </RCC>

@@ -13,6 +13,7 @@ class VideoLabel : public QWidget
 public:
   VideoLabel(QWidget *parent=0);
   void setPixmap(QPixmap pix);
+  void setMovie(QMovie*);
 protected:
     void hoverEnter(QHoverEvent *event);
     void hoverLeave(QHoverEvent *event);
