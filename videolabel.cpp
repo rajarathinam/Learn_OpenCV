@@ -96,12 +96,24 @@ bool VideoLabel::event(QEvent *event)
     default:
         break;
     }
-    return QWidget::event(event);
+    return true;
 }
 
 void VideoLabel::mouseDoubleClickEvent(QMouseEvent *event)
 {   Q_UNUSED(event);
     emit mousedoubleclicked();
 }
+void VideoLabel::resizeEvent(QResizeEvent *event) {
+    QWidget::resizeEvent(event);
+    resizeImage();
+}
+void VideoLabel::resizeImage() {
 
+    if(!label->pixmap()->isNull())
+    {
+    QSize pixSize = label->pixmap()->size();
+    pixSize.scale(size(), Qt::KeepAspectRatio);
+    label->setFixedSize(pixSize);
+    }
+}
 

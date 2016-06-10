@@ -22,8 +22,14 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
 signals:
       void mousedoubleclicked();
+protected:
+    void resizeEvent(QResizeEvent *);
+
+private slots:
+
 private slots:
   void showContextMenu(const QPoint point);
+  void resizeImage();
 
 private:
   QLabel *label;

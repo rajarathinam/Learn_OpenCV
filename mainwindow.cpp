@@ -98,8 +98,6 @@ MainWindow::MainWindow(QWidget *parent) :
             this,SLOT(sliderPressed()));
     connect(slider,SIGNAL(sliderReleased()),
             this,SLOT(sliderReleased()));
-
-
     connect(playButton,SIGNAL(toggled(bool)),
             this,SLOT(onPlayButtonToggled(bool)));
     connect(stopButton,SIGNAL(clicked(bool)),
@@ -131,6 +129,7 @@ void MainWindow::on_actionOpenImage_triggered()
     img = imread(fileName.toStdString().c_str());
     QImage imgIn= Mat2QImage(img);
     vlabel->setPixmap(QPixmap::fromImage(imgIn));
+    vlabel->adjustSize();
 }
 
 void MainWindow::on_actionConvertToGray_triggered()
@@ -222,13 +221,11 @@ void MainWindow::sliderFrameMove(int num)
 
 void MainWindow::sliderPressed()
 {
-
     playButton->setIcon(QIcon(":/images/pausebutton.png"));
     frameTimer->stop();
 }
 void MainWindow::sliderReleased()
 {
-
     playButton->setIcon(QIcon(":/images/playbutton.png"));
     slider->setValue(currentframenumber);
     capture.set(CV_CAP_PROP_POS_FRAMES,currentframenumber);
@@ -238,7 +235,6 @@ void MainWindow::sliderReleased()
 
 void MainWindow::on_actionFlip_Vertically_triggered()
 {
-
 }
 
 void MainWindow::myShowFullScreen()
@@ -268,7 +264,7 @@ void MainWindow::on_actionImageManipulationWidget_triggered()
 
 void MainWindow::onPlayButtonToggled(bool flag)
 {
-   Q_UNUSED(flag);
+    Q_UNUSED(flag);
     if( frameTimer->isActive())
     {
         frameTimer->stop();
@@ -284,7 +280,7 @@ void MainWindow::onPlayButtonToggled(bool flag)
 
 void MainWindow::onStopButtonClicked()
 {
-   initializePlayerControls();
+    initializePlayerControls();
 }
 
 void MainWindow::displayImage()
@@ -310,24 +306,43 @@ void MainWindow::displayImage()
     }
     QImage imgIn= Mat2QImage(current_img);
     vlabel->setPixmap(QPixmap::fromImage(imgIn));
-
-
 }
 
 void MainWindow::initializePlayerControls()
 {
-   playButton->setIcon(QIcon(":/images/playbutton.png"));
-   playButton->setEnabled(false);
+    playButton->setIcon(QIcon(":/images/playbutton.png"));
+    playButton->setEnabled(false);
+    slider->setValue(0);
+    if(capture.isOpened())
+    {
+        capture.release();
+    }
+    vlabel->setMovie(movie);
+    movie->start();
+    frameTimer->stop();
+}
 
-   slider->setValue(0);
-   if(capture.isOpened())
-   {
-       capture.release();
+void MainWindow::on_actionMy_Blur_triggered()
+{
 
-   }
-   vlabel->setMovie(movie);
-   movie->start();
-   frameTimer->stop();
+    if(!current_img.empty())
+    {
+        blurred = myBlurImage(current_img);
+        qDebug() << blurred.cols;
+        QImage img = Mat2QImage(blurred);
+        vlabel->setPixmap(QPixmap::fromImage(img));
+    }
 
+}
 
+void MainWindow::resizeEvent(QResizeEvent *)
+{
+
+}
+
+void MainWindow::on_actionCreate_ChessBoard_triggered()
+{
+  chessboardwidget = new  ChessBoardWidget;
+  chessboardwidget->createChessBoardImage(256,256,64);
+  chessboardwidget->displayImage();
 }

@@ -13,6 +13,7 @@
 #include "imagemaninpulationwidget.h"
 #include "aspectratiopixmaplabel.h"
 #include "imagelabel.h"
+#include "chessboardwidget.h"
 
 namespace Ui
 {
@@ -58,6 +59,12 @@ private slots:
     void displayImage();
     void initializePlayerControls();
 
+    void on_actionMy_Blur_triggered();
+    void on_actionCreate_ChessBoard_triggered();
+
+protected:
+    void resizeEvent(QResizeEvent *);
+
 private:
     Ui::MainWindow *ui;
 
@@ -75,11 +82,14 @@ private:
     bool imageManipulationWidgetVisible;
 
     static ImageManinpulationWidget *imageManipulationWidget;
+    ChessBoardWidget *chessboardwidget;
+
 
     //OpenCV
     Mat img;
     Mat initialImage;
     Mat current_img;
+    Mat blurred;
     Mat getCurrentImage();
 
     VideoCapture capture;

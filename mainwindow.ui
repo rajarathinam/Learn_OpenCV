@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>535</width>
-    <height>302</height>
+    <width>726</width>
+    <height>552</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,8 +32,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>535</width>
-     <height>21</height>
+     <width>726</width>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -55,13 +55,29 @@
     <addaction name="actionFlip_Vertically"/>
     <addaction name="actionImageManipulationWidget"/>
    </widget>
+   <widget class="QMenu" name="menuFilters">
+    <property name="title">
+     <string>Fileters</string>
+    </property>
+    <addaction name="actionMy_Blur"/>
+   </widget>
+   <widget class="QMenu" name="menuImage">
+    <property name="title">
+     <string>Image</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionCreate_New_Image"/>
+    <addaction name="actionCreate_ChessBoard"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTools"/>
+   <addaction name="menuFilters"/>
+   <addaction name="menuImage"/>
   </widget>
   <action name="actionOpenImage">
    <property name="icon">
-    <iconset>
-     <normaloff>:/images/fileopen.png</normaloff>:/images/fileopen.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/openimage.png</normaloff>:/images/openimage.png</iconset>
    </property>
    <property name="text">
     <string>OpenImage</string>
@@ -71,13 +87,24 @@
    </property>
   </action>
   <action name="actionOpenVideo">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/openvideo.png</normaloff>:/images/openvideo.png</iconset>
+   </property>
    <property name="text">
     <string>OpenVideo</string>
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
+   </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionFlip_Horizontally">
@@ -109,6 +136,24 @@
   <action name="actionImageManipulationWidget">
    <property name="text">
     <string>ImageManipulationWidget</string>
+   </property>
+  </action>
+  <action name="actionMy_Blur">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>My Blur</string>
+   </property>
+  </action>
+  <action name="actionCreate_New_Image">
+   <property name="text">
+    <string>Create New Image</string>
+   </property>
+  </action>
+  <action name="actionCreate_ChessBoard">
+   <property name="text">
+    <string>CreateChessBoardImage</string>
    </property>
   </action>
  </widget>

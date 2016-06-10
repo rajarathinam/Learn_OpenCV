@@ -83,3 +83,25 @@ Mat rotate(Mat src, double angle)
     return dst;
 }
 
+Mat myBlurImage(Mat src)
+{
+     Mat dst(src);
+    if(!src.empty())
+      {
+        std::cout <<"Hello\n";
+
+        int w = dst.cols;
+        int h = dst.rows;
+        for(int row = 0; row < h; row++)
+          {
+            for(int col = 0;  col< w ; col++)
+              {
+                  dst.at<Vec3d>(row,col)[0] = 255;
+                  dst.at<Vec3d>(row,col)[1] = 255;
+                  dst.at<Vec3d>(row,col)[2] = 255;
+              }
+          }
+
+      }
+    return dst;
+}

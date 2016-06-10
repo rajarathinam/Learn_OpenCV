@@ -26,5 +26,6 @@ Mat QImage2Mat(QImage const& src);
 QImage Mat2QImage(Mat const& src);
 Mat rotate(Mat src, double angle);
 Mat writeTextOnImage(Mat src,const char* text);
+Mat myBlurImage(Mat src);
 #endif // MYOPENCV
 
