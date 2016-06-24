@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     geometrywidget.cpp \
     aspectratiopixmaplabel.cpp \
     imagelabel.cpp \
-    chessboardwidget.cpp
+    chessboardwidget.cpp \
+    blendwidget.cpp
 
 HEADERS  += mainwindow.h \
     myopencv.h \
@@ -34,7 +35,8 @@ HEADERS  += mainwindow.h \
     geometrywidget.h \
     aspectratiopixmaplabel.h \
     imagelabel.h \
-    chessboardwidget.h
+    chessboardwidget.h \
+    blendwidget.h
 
 FORMS    += mainwindow.ui
 

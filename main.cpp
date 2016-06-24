@@ -2,8 +2,10 @@
 #include "overlaywidget.h"
 #include "aspectratiopixmaplabel.h"
 #include "videolabel.h"
+#include <QAction>
 #include <QApplication>
 #include <QLabel>
+#include <QMenu>
 
 
 int main(int argc, char *argv[])
@@ -13,6 +15,7 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
+
 
 
     return a.exec();

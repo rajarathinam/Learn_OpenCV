@@ -14,6 +14,7 @@
 #include "aspectratiopixmaplabel.h"
 #include "imagelabel.h"
 #include "chessboardwidget.h"
+#include "blendwidget.h"
 
 namespace Ui
 {
@@ -35,7 +36,6 @@ private slots:
 
     void on_actionOpenImage_triggered();
 
-    void on_actionConvertToGray_triggered();
 
     void on_actionFlip_Horizontally_triggered();
 
@@ -61,6 +61,15 @@ private slots:
 
     void on_actionMy_Blur_triggered();
     void on_actionCreate_ChessBoard_triggered();
+
+    void on_actionResizeImage_triggered();
+
+    void on_actionInvert_Colour_triggered();
+
+    void on_actionSplit_RGB_triggered();
+
+    void on_actionBlendImage_triggered();
+
 
 protected:
     void resizeEvent(QResizeEvent *);
@@ -99,6 +108,8 @@ private:
 
     int totalframes;
     int currentframenumber;
+
+    BlendWidget *blendwidget;
 
 
 

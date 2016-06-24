@@ -50,7 +50,6 @@
      <string>Tools</string>
     </property>
     <addaction name="actionFlip_Horizontally"/>
-    <addaction name="actionConvertToGrayscale"/>
     <addaction name="actionReset"/>
     <addaction name="actionFlip_Vertically"/>
     <addaction name="actionImageManipulationWidget"/>
@@ -68,6 +67,11 @@
     <addaction name="separator"/>
     <addaction name="actionCreate_New_Image"/>
     <addaction name="actionCreate_ChessBoard"/>
+    <addaction name="actionResizeImage"/>
+    <addaction name="actionInvert_Colour"/>
+    <addaction name="actionSplit_RGB"/>
+    <addaction name="actionConvertToGrayscale"/>
+    <addaction name="actionBlendImage"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTools"/>
@@ -120,11 +124,6 @@
     <string>Reset</string>
    </property>
   </action>
-  <action name="actionConvertToGrayscale">
-   <property name="text">
-    <string>ConvertToGrayscale</string>
-   </property>
-  </action>
   <action name="actionFlip_Vertically">
    <property name="checkable">
     <bool>true</bool>
@@ -154,6 +153,31 @@
   <action name="actionCreate_ChessBoard">
    <property name="text">
     <string>CreateChessBoardImage</string>
+   </property>
+  </action>
+  <action name="actionResizeImage">
+   <property name="text">
+    <string>ResizeImage</string>
+   </property>
+  </action>
+  <action name="actionInvert_Colour">
+   <property name="text">
+    <string>Invert Colour</string>
+   </property>
+  </action>
+  <action name="actionConvertToGrayscale">
+   <property name="text">
+    <string>ConvertToGrayscale</string>
+   </property>
+  </action>
+  <action name="actionSplit_RGB">
+   <property name="text">
+    <string>Split RGB</string>
+   </property>
+  </action>
+  <action name="actionBlendImage">
+   <property name="text">
+    <string>BlendImage</string>
    </property>
   </action>
  </widget>

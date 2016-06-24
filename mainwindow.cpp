@@ -6,6 +6,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <unistd.h>
+#include <vector>
 extern Mat QImage2Mat(QImage const& src);
 extern QImage Mat2QImage(Mat const& src);
 ImageManinpulationWidget* MainWindow::imageManipulationWidget = NULL;
@@ -14,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    blendwidget = new BlendWidget;
+    QMap<QString,QString> mymap;
+    mymap.insert("Raja Rathinam A","E515378");
+    mymap.insert("[ax]","x");
     setMinimumSize(500,500);
     fullScreenSet = false;
     imageManipulationWidgetVisible = false;
@@ -132,18 +137,6 @@ void MainWindow::on_actionOpenImage_triggered()
     vlabel->adjustSize();
 }
 
-void MainWindow::on_actionConvertToGray_triggered()
-{
-    if(img.data != NULL)
-    {
-        Mat temp = img;
-        Mat flipped(temp);
-        cv::flip(temp,flipped,0);
-        QImage imgIn= Mat2QImage(flipped);
-        vlabel->setPixmap(QPixmap::fromImage(imgIn));
-        current_img = flipped;
-    }
-}
 
 void MainWindow::on_actionFlip_Horizontally_triggered()
 {
@@ -172,15 +165,24 @@ void MainWindow::on_actionReset_triggered()
 
 void MainWindow::on_actionConvertToGrayscale_triggered()
 {
-    Mat tempImage = getCurrentImage();
-    if( tempImage.data != nullptr)
-    {
-        Mat dst(tempImage);
-        cv::cvtColor(tempImage,dst,CV_BGR2GRAY);
-        QImage imgIn= Mat2QImage(dst);
-        vlabel->setPixmap(QPixmap::fromImage(imgIn));
-        current_img = dst;
-    }
+    /*
+      Mat tempImage = getCurrentImage();
+      if( tempImage.data != nullptr)
+      {
+          Mat dst(tempImage);
+          cv::cvtColor(tempImage,dst,CV_BGR2GRAY);
+          QImage imgIn= Mat2QImage(dst);
+          vlabel->setPixmap(QPixmap::fromImage(imgIn));
+          current_img = dst;
+      }
+      */
+    Mat input_image = imread("/home/rajarathinam/My_Stuff/raja.jpg");
+    Mat grey_image = input_image.clone();
+    cvtColor(input_image,grey_image,CV_BGR2GRAY);
+    QLabel *label = new QLabel;
+    label->setPixmap(QPixmap::fromImage(Mat2QImage(grey_image)));
+    label->resize(grey_image.cols,grey_image.rows);
+    label->show();
 }
 
 Mat MainWindow::getCurrentImage()
@@ -324,7 +326,6 @@ void MainWindow::initializePlayerControls()
 
 void MainWindow::on_actionMy_Blur_triggered()
 {
-
     if(!current_img.empty())
     {
         blurred = myBlurImage(current_img);
@@ -332,17 +333,71 @@ void MainWindow::on_actionMy_Blur_triggered()
         QImage img = Mat2QImage(blurred);
         vlabel->setPixmap(QPixmap::fromImage(img));
     }
-
 }
 
 void MainWindow::resizeEvent(QResizeEvent *)
 {
-
 }
 
 void MainWindow::on_actionCreate_ChessBoard_triggered()
 {
-  chessboardwidget = new  ChessBoardWidget;
-  chessboardwidget->createChessBoardImage(256,256,64);
-  chessboardwidget->displayImage();
+    chessboardwidget = new  ChessBoardWidget;
+    chessboardwidget->createChessBoardImage(256,256,64);
+    chessboardwidget->displayImage();
 }
+
+void MainWindow::on_actionResizeImage_triggered()
+{
+    Mat orig = imread("/home/rajarathinam/My_Stuff/lovebirds.jpg");
+    Mat small_img;
+    cv::resize(orig,small_img,Size(orig.cols/4,orig.rows/4));
+    QLabel *label = new QLabel;
+    label->setPixmap(QPixmap::fromImage(Mat2QImage(small_img)));
+    label->show();
+}
+
+void MainWindow::on_actionInvert_Colour_triggered()
+{
+    Mat input_image = imread("/home/rajarathinam/My_Stuff/raja.jpg");
+    Mat output_image = input_image.clone();
+    for (int row=0; row < input_image.rows; row++)
+        for (int col=0; col < input_image.cols; col++)
+            for (int channel = 0; channel < input_image.channels(); channel++)
+            {
+                output_image.at<Vec3b>(row,col)[channel] = 255 - input_image.at<Vec3b>(row,col)[channel];
+            }
+    QLabel *label = new QLabel;
+    label->setPixmap(QPixmap::fromImage(Mat2QImage(output_image)));
+    label->resize(output_image.cols,output_image.rows);
+    label->show();
+}
+
+void MainWindow::on_actionSplit_RGB_triggered()
+{
+    Mat input_image = imread("/home/rajarathinam/My_Stuff/raja.jpg");
+    Mat otherchannel = Mat::zeros(Size(input_image.cols,input_image.rows),CV_8UC1);
+    std::vector<Mat> bgr_images(3);
+    split(input_image,bgr_images);
+    QLabel *label = new QLabel[3];
+    std::vector<Mat> newImage;
+    Mat img;
+    newImage.push_back(otherchannel);
+    newImage.push_back(otherchannel);
+    newImage.push_back(bgr_images[0]);
+    merge(newImage,img);
+    label[0].setPixmap(QPixmap::fromImage(Mat2QImage(img)));
+    //label[0].resize(output_image.cols,output_image.rows);
+    label[0].show();
+    label[1].setPixmap(QPixmap::fromImage(Mat2QImage(bgr_images[1])));
+    //label[1].resize(output_image.cols,output_image.rows);
+    label[1].show();
+    label[2].setPixmap(QPixmap::fromImage(Mat2QImage(bgr_images[2])));
+//label[2].resize(output_image.cols,output_image.rows);
+    label[2].show();
+}
+
+void MainWindow::on_actionBlendImage_triggered()
+{
+    blendwidget->show();
+}
+
