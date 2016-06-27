@@ -27,5 +27,9 @@ QImage Mat2QImage(Mat const& src);
 Mat rotate(Mat src, double angle);
 Mat writeTextOnImage(Mat src,const char* text);
 Mat myBlurImage(Mat src);
+Mat mycopyMakeBorder(InputArray src,int top, int bottom, int left, int right, int borderType, const Scalar value);
+cv::Scalar qcolor2scalar(QColor color);
+QColor scalar2qcolor(cv::Scalar color);
+
 #endif // MYOPENCV
 

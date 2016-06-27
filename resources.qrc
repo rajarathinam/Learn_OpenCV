@@ -10,5 +10,7 @@
         <file>exit.png</file>
         <file>openvideo.png</file>
         <file>openimage.png</file>
+        <file>color_picker.png</file>
+        <file>snow.gif</file>
     </qresource>
 </RCC>

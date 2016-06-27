@@ -1,4 +1,6 @@
 #include "myopencv.h"
+
+#include <QColor>
 Mat QImage2Mat(QImage const& src)
 {
     Mat mat = Mat(src.height(), src.width(), CV_8UC4, (uchar*)src.bits(), src.bytesPerLine());
@@ -103,5 +105,24 @@ Mat myBlurImage(Mat src)
           }
 
       }
+    return dst;
+}
+cv::Scalar qcolor2scalar(QColor color)
+{
+    int r,g,b;
+    color.getRgb(&r, &g, &b);
+    return cv::Scalar(b,g,r); // swap RGB-->BGR
+}
+
+
+QColor scalar2qcolor(cv::Scalar color)
+{
+    return QColor(color[2],color[1],color[0]); // swap RGB-->BGR
+}
+Mat mycopyMakeBorder(InputArray src,int top, int bottom, int left, int right, int borderType, const Scalar value)
+
+{
+    Mat dst;
+    cv::copyMakeBorder(src,dst,top,bottom,left,right,borderType,value);
     return dst;
 }

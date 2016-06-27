@@ -19,21 +19,17 @@ BlendWidget::BlendWidget(QWidget *parent) : QWidget(parent)
     secondSpinBox->setMinimum(0);
     secondSpinBox->setDecimals(1);
     secondSpinBox->setSingleStep(0.1);
-
-
-    //toolbutton1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
+    toolbutton1->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     toolbutton2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     toolbutton3->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
-
     mainlayout->addWidget(toolbutton1,0,0);
     mainlayout->addWidget(plusLabel,0,1,1,1);
     mainlayout->addWidget(toolbutton2,0,2,1,1);
     mainlayout->addWidget(equalLabel,0,3,1,1);
-    mainlayout->addWidget(toolbutton3,0,3,2,1);
+    mainlayout->addWidget(toolbutton3,0,4,2,1);
     mainlayout->addWidget(firstSpinBox,1,0);
     mainlayout->addWidget(secondSpinBox,1,2);
     setLayout(mainlayout);
-
     connect(firstSpinBox,SIGNAL(valueChanged(double)),
             this,SLOT(blendImage()));
     connect(secondSpinBox,SIGNAL(valueChanged(double)),
@@ -42,8 +38,7 @@ BlendWidget::BlendWidget(QWidget *parent) : QWidget(parent)
             this,SLOT(displayImage1()));
     connect(toolbutton2,SIGNAL(clicked(bool)),
             this,SLOT(displayImage2()));
-
-    setMinimumSize(800,250);
+    //setMinimumSize(800,250);
 }
 
 void BlendWidget::displayImage1()
@@ -63,7 +58,6 @@ void BlendWidget::displayImage2()
 }
 void BlendWidget::blendImage()
 {
-
     Mat dst;
     if(!origImg1.empty())
     {
@@ -72,6 +66,5 @@ void BlendWidget::blendImage()
         toolbutton3->setIcon(QPixmap::fromImage(Mat2QImage(dst)));
         toolbutton3->setIconSize(QSize(dst.cols/2,dst.rows/2));
     }
-
 }
 
